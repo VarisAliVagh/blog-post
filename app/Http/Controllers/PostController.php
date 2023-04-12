@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use Illuminate\Database\DBAL\TimestampType;
+use Nette\Utils\Random;
 
 class PostController extends Controller
 {
@@ -21,12 +23,14 @@ class PostController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,webp'
         ]);
 
-        
+        $fileName = time().'webelight'.$req -> file('image') -> getClientOriginalExtension();
+        $req -> file('image') -> storeAs('public/',$fileName);
+
         $db = new Post;
         $db -> title = $data['title'];
         $db -> content = $data['content'];
         $db -> comment = $data['comment'];
-        $db -> imagePath = $data['image']-> getClientOriginalName();
+        $db -> imagePath = $fileName;
         $db -> save();
 
         return redirect('/');

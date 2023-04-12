@@ -1,7 +1,7 @@
 #profile-dropdown{
     display: none;
 }
-.navbar-brand img{
+.navbar-brand img,.post-img img{
     height: 40px;
     width: 40px;
 }
