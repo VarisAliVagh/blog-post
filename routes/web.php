@@ -1,9 +1,9 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,7 +16,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/',[PostController::class,'index']);
-Route::get('/create',[PostController::class,'create']);
+Route::get('/',[HomeController::class,'index']);
+Route::get('/post',[PostController::class,'index']);
+Route::post('/post/create',[PostController::class,'create']);
+
 Route::get('/login',[AuthController::class,'login']);
 Route::get('/register',[AuthController::class,'register']);
