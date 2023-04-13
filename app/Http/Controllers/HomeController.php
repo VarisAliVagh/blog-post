@@ -10,6 +10,6 @@ class HomeController extends Controller
     public function index()
     {
         $posts = Post::all()->toArray();
-        return view('welcome')->with('posts',$posts);
+        return view('welcome')->with('arr',$posts);
     }
 }

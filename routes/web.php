@@ -11,14 +11,36 @@ use Illuminate\Support\Facades\Route;
 |
 | Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
+| be assigned to the "web" middleware group. Make something     great!
 |
 */
 
 
-Route::get('/',[HomeController::class,'index']);
-Route::get('/post',[PostController::class,'index']);
-Route::post('/post/create',[PostController::class,'create']);
+
+Route::get('/',[HomeController::class,'index'])->middleware('guard');
+Route::get('/post/{id?}',[PostController::class,'index'])->middleware('guard');
+Route::post('/post/create',[PostController::class,'create'])->middleware('guard');
+Route::get('/viewPost/{id}',[PostController::class,'viewPost'])->middleware('guard');
+Route::post('/post/update/{id}',[PostController::class,'updatePost'])->middleware('guard');
+Route::get('/delete/{id}',[PostController::class,'DeletePost'])->middleware('guard');
+
+
 
 Route::get('/login',[AuthController::class,'login']);
+Route::post('/login',[AuthController::class,'loginUser']);
 Route::get('/register',[AuthController::class,'register']);
+Route::post('/register',[AuthController::class,'registerUser']);
+Route::get('/logout',[AuthController::class,'logoutUser']);
+
+
+
+
+
+Route::get('/getSession',function(){
+    $session = session()->all();
+    pre($session);
+});
+
+Route::get('/destroySession',function(){
+    session()->forget('id');
+});

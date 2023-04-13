@@ -9,9 +9,16 @@ use Nette\Utils\Random;
 
 class PostController extends Controller
 {
-    public function index()
+    public function index(Request $req)
     {
-        return view('post');
+        $id = $req -> id;
+        if($id){
+            $post = Post::find($id)->toarray();
+            return view('post')->with('post',$post);
+        }
+        else{
+            return view('post');
+        }
     }
     public function create(Request $req)
     {
@@ -33,6 +40,35 @@ class PostController extends Controller
         $db -> imagePath = $fileName;
         $db -> save();
 
+        return redirect('/');
+    }
+    public function viewPost(Request $req)
+    {
+        $id = $req -> id;
+        $findRecord = Post::find($id)->toarray();
+        return view('viewPost') -> with('findRecord',$findRecord);  
+    }
+    public function updatePost(Request $req)
+    {
+        $id = $req -> id;
+        $record = Post::find($id);
+        if($req -> file('image')){
+            $fileName = time().'webelight'.$req -> file('image') -> getClientOriginalExtension();
+            $req -> file('image') -> storeAs('public/',$fileName);
+            $record -> imagePath = $fileName;
+        }
+    
+        $record -> title = $req['title'];
+        $record -> content = $req['content'];
+        $record -> comment = $req['comment'];
+        $record -> save();
+
+        return redirect('/');
+    }
+    public function deletePost(Request $req)
+    {
+        $id = $req -> id;
+        $record = Post::find($id) -> delete();
         return redirect('/');
     }
 }
