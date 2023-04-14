@@ -42,7 +42,7 @@ class AuthController extends Controller
         $user = Auth::latest()->first();
         $id = $user->id;
 
-        session()->put('id',$id+1);
+        session()->put('id',$id);
         return redirect('/');
     }
     public function loginUser(Request $req)
@@ -74,6 +74,7 @@ class AuthController extends Controller
     public function logoutUser()
     {
         session()->forget('id');
+        session()->flush();
         return redirect('/login');
     }
 }

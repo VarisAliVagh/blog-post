@@ -8,8 +8,8 @@
       <label for="email" class="form-label">Email Address</label>
       <input type="email" class="form-control" id="email" aria-describedby="emailHelp" name="email">
       <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-      <span class="email">
-        @error('last-name')
+      <span class="text-danger">
+        @error('email')
           {{ $message }}
         @enderror
       </span>

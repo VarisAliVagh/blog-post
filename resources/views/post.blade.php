@@ -41,6 +41,7 @@
           </span>
           </div>
         <button class="btn btn-primary">{{ empty($post) ? 'Insert' : 'Update' }}</button>
+        <a href="/" class="btn btn-primary">Back</a>
       </form>
   </div>
 @endsection

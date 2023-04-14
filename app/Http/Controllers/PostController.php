@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use Illuminate\Database\DBAL\TimestampType;
 use Nette\Utils\Random;
+use Illuminate\Support\Facades\Schema;
+
 
 class PostController extends Controller
 {
@@ -33,11 +35,13 @@ class PostController extends Controller
         $fileName = time().'webelight'.$req -> file('image') -> getClientOriginalExtension();
         $req -> file('image') -> storeAs('public/',$fileName);
 
+        $id = session()->get('id');
         $db = new Post;
         $db -> title = $data['title'];
         $db -> content = $data['content'];
         $db -> comment = $data['comment'];
         $db -> imagePath = $fileName;
+        $db -> user_id = $id;
         $db -> save();
 
         return redirect('/');

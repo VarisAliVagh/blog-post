@@ -11,13 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('register_user', function (Blueprint $table) {
-            $table->id();
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->string('email');
-            $table->string('password');
-            $table->timestamps();
+        Schema::table('mobile', function (Blueprint $table) {
+            $table->dropColumn(['price','ram']);
         });
     }
 
@@ -26,6 +21,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('register_user');
+        Schema::table('mobile', function (Blueprint $table) {
+            $table->float('price',8,2);
+            $table->integer('ram');
+        });
     }
 };
