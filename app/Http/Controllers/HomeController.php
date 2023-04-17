@@ -12,6 +12,6 @@ class HomeController extends Controller
         $val = $req['search'] ?? '';
         $id = session()->get('id');
         $posts = Post::all()->where('user_id',$id)->toArray();
-        return view('welcome')->with('arr',$posts);
+        return view('welcome')->with('posts',$posts);
     }
 }

@@ -1,7 +1,7 @@
 @extends('/layouts/main')
-
 @section('main-content')
-<div class="container mt-5">
+{!! $error ?? '' !!}
+<div class="login-container container">
   <form action="/login" method="post">
     @csrf
     <div class="mb-3">

@@ -6,6 +6,126 @@
     width: 40px;
 }
 .view-post-img{
-    height: 300px;
-    width: 300px;
+    max-width: 100%;
+}
+footer{
+    background-color: #282f4d;
+}
+footer .container .social-icons a{
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    padding: 5px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+footer .container .social-icons a span i{
+    color: white;
+}
+footer .container .social-icons .facebook{
+    background-color: #3b5998;
+}
+footer .container .social-icons .twitter{
+    background-color: #1da1f2;
+}
+footer .container .social-icons .youtube{
+    background-color: #cd201f;
+}
+footer .container .social-icons .instagram{
+    background-color: purple;
+}
+.card{
+    height: fit-content;
+    position: relative;
+}
+.card-body{
+    position: absolute;
+    bottom: 0;
+    color: white;
+}
+.card-img{
+    overflow: hidden;
+}
+.card .card-img{
+    position: relative;
+}
+.card .card-img .overlay{
+    position: absolute;
+    position: absolute;
+    background: #6d7491;
+    height: 0;
+    width: 100%;
+    top: 0;
+    opacity: 0.5;
+    visibility: hidden;
+    transition: all 0.5s;
+}
+.card:hover{
+    color: #6d7491;
+}
+.card:hover > .card-img .overlay{
+    visibility: visible;
+    height: 100%;
+}
+.container-main{
+    position: relative;
+}
+.login-container,.register-container,.create-post-container{
+    min-height: calc(100vh - 216px);
+    display: flex;
+    align-items: center;
+}
+.view-post-container{
+    min-height: calc(100vh - 312px);
+    position: relative;
+}
+.empty-data-container{
+    min-height: calc(100vh - 216px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.blog-title{
+    position: absolute;
+    bottom: 0;
+    color: white;
+}
+.blog-img-title{
+    position: relative;
+    width: fit-content;
+}
+
+.login-container form,.register-container form,.create-post-container form{
+    width: 100%;
+}
+.login-alert{
+    position: absolute;
+    top: 150px;
+    width: 100%;
+}
+.show-post-container section:nth-child(even){
+    background-color: #6d7491;
+}
+.show-post-container section:nth-child(odd){
+    border-radius: 20px;
+}
+.all-categories-container{
+    display: flex;
+    flex-wrap: wrap;
+}
+.show-post-container{
+    min-height: calc(100vh - 264px);
+}
+.follow-us{
+    position: relative;
+}
+.follow-us::after{
+    position: absolute;
+    content: "";
+    height: 100%;
+    width: 5px;
+    background-color: black;
+    top: 0;
+    left: 0;
 }

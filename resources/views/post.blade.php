@@ -1,7 +1,7 @@
 @extends('/layouts/main')
 
 @section('main-content')
-<div class="container mt-5">
+<div class="create-post-container container">
     <form action="{{ empty($post) ? "/post/create" : "/post/update/".$post['id']}}" method="POST" enctype="multipart/form-data">
       @csrf
         <div class="mb-3">
@@ -23,25 +23,32 @@
           </span>
         </div>
         <div class="mb-3">
-            <label for="comment" class="form-label">Comment</label>
-            <input type="text" class="form-control" id="comment" name="comment" value="{{ $post['comment'] ?? "" }}">
-            <span class="text-danger">
-              @error('comment')
-                {{ $message }}
-              @enderror
-            </span>
-        </div>  
-        <div class="mb-3">
-            <label for="image" class="form-label">please insert image here</label>
-            <input class="form-control" type="file" id="image" name="image" value="{{ $post['imagePath'] ?? "" }}">
+          <label for="image" class="form-label">Please insert image here</label>
+          <input class="form-control" type="file" id="image" name="image" value="{{ $post['imagePath'] ?? "" }}">
           <span class="text-danger">
             @error('image')
-              {{ $message }}
+            {{ $message }}
             @enderror
           </span>
-          </div>
+        </div>
+        <div class="mb-3">
+          <select class="form-select" aria-label="Default select example" name="category">
+            <option selected disabled>CATEGORY</option>
+            <option value="business">BUSINESS</option>
+            <option value="health">HEALTH</option>
+            <option value="lifestyle">LIFESTYLE</option>
+            <option value="politics">POLITICS</option>
+            <option value="sci-tech">SCI-TECH</option>
+            <option value="sports">SPORTS</option>
+          </select>
+          <span class="text-danger">
+            @error('category')
+            {{ $message }}
+            @enderror
+          </span>
+        </div>
         <button class="btn btn-primary">{{ empty($post) ? 'Insert' : 'Update' }}</button>
         <a href="/" class="btn btn-primary">Back</a>
       </form>
-  </div>
+    </div>
 @endsection

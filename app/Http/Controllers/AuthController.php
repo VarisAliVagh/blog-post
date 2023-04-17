@@ -69,7 +69,11 @@ class AuthController extends Controller
                 return redirect('/');
             }
         }
-        return redirect('/login');
+        $error = "<div class='login-alert alert alert-danger alert-dismissible fade show' role='alert'>
+                    <strong>Failed!</strong> Please recheck the email and password
+                    <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+                 </div>";
+        return view('/login') -> with('error',$error);
     }
     public function logoutUser()
     {
