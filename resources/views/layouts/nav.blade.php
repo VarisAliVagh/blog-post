@@ -57,22 +57,22 @@
             <a class="nav-link active" aria-current="page" href="/">HOME</a>
           </li>
           <li class="nav-item me-3">
-            <a class="nav-link" href="/register">BUSINESS</a>
+            <a class="nav-link" href="/business">BUSINESS</a>
           </li>
           <li class="nav-item me-3">
-            <a class="nav-link" href="/register">HEALTH</a>
+            <a class="nav-link" href="/health">HEALTH</a>
           </li>
           <li class="nav-item me-3">
-            <a class="nav-link" href="/register">LIFESTYLE</a>
+            <a class="nav-link" href="/lifestyle">LIFESTYLE</a>
           </li>
           <li class="nav-item me-3">
-            <a class="nav-link" href="/register">POLITICS</a>
+            <a class="nav-link" href="/politics">POLITICS</a>
           </li>
           <li class="nav-item me-3">
-            <a class="nav-link" href="/register">SCI-TECH</a>
+            <a class="nav-link" href="/sciTech">SCI-TECH</a>
           </li>
           <li class="nav-item me-3">
-            <a class="nav-link" href="/register">SPORTS</a>
+            <a class="nav-link" href="/sports">SPORTS</a>
           </li>
           <li class="nav-item me-3">
             <a class="nav-link" href="/post">CREATE BLOG</a>
@@ -105,25 +105,25 @@
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
           @if(session()->has('id'))
             <li class="border-bottom nav-item">
-              <a class="nav-link active" aria-current="page" href="#">HOME</a>
+              <a class="nav-link active" aria-current="page" href="/">HOME</a>
             </li>
             <li class="border-bottom nav-item">
-              <a class="nav-link" href="#">BUSINESS</a>
+              <a class="nav-link" href="/business">BUSINESS</a>
             </li>
             <li class="border-bottom nav-item">
-              <a class="nav-link" href="#">HEALTH</a>
+              <a class="nav-link" href="/health">HEALTH</a>
             </li>
             <li class="border-bottom nav-item me-3">
-              <a class="nav-link" href="/register">LIFESTYLE</a>
+              <a class="nav-link" href="/lifestyle">LIFESTYLE</a>
             </li>
             <li class="border-bottom nav-item me-3">
-              <a class="nav-link" href="/register">POLITICS</a>
+              <a class="nav-link" href="/politics">POLITICS</a>
             </li>
             <li class="border-bottom nav-item me-3">
-              <a class="nav-link" href="/register">SCI-TECH</a>
+              <a class="nav-link" href="/sciTech">SCI-TECH</a>
             </li>
             <li class="border-bottom nav-item me-3">
-              <a class="nav-link" href="/register">SPORTS</a>
+              <a class="nav-link" href="/sports">SPORTS</a>
             </li> 
             <li class="border-bottom nav-item me-3">
               <a class="nav-link" href="/post">CREATE BLOG</a>

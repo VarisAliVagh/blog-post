@@ -21,6 +21,8 @@ Route::get('/',[HomeController::class,'index'])->middleware('guard');
 Route::get('/post/{id?}',[PostController::class,'index'])->middleware('guard');
 Route::post('/post/create',[PostController::class,'create'])->middleware('guard');
 Route::get('/viewPost/{id}',[PostController::class,'viewPost'])->middleware('guard');
+Route::post('/createComment/{id}',[PostController::class,'createComment'])->middleware('guard');
+
 Route::post('/post/update/{id}',[PostController::class,'updatePost'])->middleware('guard');
 Route::get('/delete/{id}',[PostController::class,'DeletePost'])->middleware('guard');
 

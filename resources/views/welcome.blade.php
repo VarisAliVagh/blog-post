@@ -1,7 +1,12 @@
 @extends('/layouts/main')
 
-{{-- @dd($posts) --}}
 
+{{-- @foreach($catArr as $cat)
+  {{ pre($cat->toarray()) }} 
+@endforeach
+{{ exit }} --}}
+{{-- @dd($posts['business']) --}}
+{{-- @dd($posts) --}}
 
 @section('main-content')
 <div class="show-post-container">
@@ -11,7 +16,7 @@
     </div>
     @else
     <section class="all-categories-container container mt-5 mb-5">
-      @foreach($posts as $post)
+      @foreach($posts['latestPost'] as $post)
         <a href="/viewPost/{{$post['id']}}" class="text-decoration-none text-black mb-2">
           <div class="card me-2" style="width: 18rem;">
             <div class="card-img">
@@ -26,63 +31,77 @@
       @endforeach
     </section>
 
-    @foreach($posts as $post)
+
+  @php $business = false  @endphp
+    @foreach($posts['business'] as $post)
     @if($post['category'] == 'business')
-    <section class="py-5 business mb-5">
-      @foreach($posts as $post)
-      @if($post['category'] == 'business')
-      <div class="container">
-        <h1 class="text-center">Business</h1>
-        <a href="/viewPost/{{$post['id']}}" class="text-decoration-none text-black">
-          <div class="card me-2" style="width: 18rem;">
-            <div class="card-img">
-              <img src="{{asset('storage/')}}/{{$post['imagePath']}}" class="card-img-top" alt="...">
-              <div class="overlay"></div>
+        @php $business = true @endphp
+      @endif 
+    @endforeach
+    @if($business)
+    <section class="py-5 business-section mb-5">
+      <h1 class="text-center">Business</h1>
+      <div class="container d-flex">
+      @foreach($posts['business'] as $post)
+        @if($post['category'] == 'business')
+          <a href="/viewPost/{{$post['id']}}" class="text-decoration-none text-black">
+            <div class="card me-2" style="width: 18rem;">
+              <div class="card-img">
+                <img src="{{asset('storage/')}}/{{$post['imagePath']}}" class="card-img-top" alt="...">
+                <div class="overlay"></div>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">{{ $post['title'] }}</h5>
+              </div>
             </div>
-            <div class="card-body">
-              <h5 class="card-title">{{ $post['title'] }}</h5>
-            </div>
-          </div>
-        </a>
-      </div>
-        @endif  
-      @endforeach
+          </a>
+          @endif
+          @endforeach
+        </div>
     </section>
     @endif
-    @endforeach
     
-    @foreach($posts as $post)
-    @if($post['category'] == 'health')
-    <section class="py-5 health mb-5">
-      @foreach($posts as $post)
-        @if($post['category'] == 'health')
-        <div class="container">
-          <h1 class="text-center">health</h1>
-          <a href="/viewPost/{{$post['id']}}" class="text-decoration-none text-black">
-            <div class="card me-2" style="width: 18rem;">
-              <div class="card-img">
-                <img src="{{asset('storage/')}}/{{$post['imagePath']}}" class="card-img-top" alt="...">
-                <div class="overlay"></div>
-              </div>
-              <div class="card-body">
-                <h5 class="card-title">{{ $post['title'] }}</h5>
-              </div>
-            </div>
-          </a>
-        </div>
-        @endif  
-      @endforeach
-    </section>
-    @endif
+     @php $health = false @endphp
+    @foreach($posts['health'] as $post)
+      @if($post['category'] == 'health')
+        @php $health = true @endphp
+      @endif 
     @endforeach
+      @if($health)
+      <section class="py-5 health-section mb-5">
+        <h1 class="text-center">health</h1>
+        <div class="container d-flex">
+        @foreach($posts['health'] as $post)
+          @if($post['category'] == 'health')
+            <a href="/viewPost/{{$post['id']}}" class="text-decoration-none text-black">
+              <div class="card me-2" style="width: 18rem;">
+                <div class="card-img">
+                  <img src="{{asset('storage/')}}/{{$post['imagePath']}}" class="card-img-top" alt="...">
+                  <div class="overlay"></div>
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">{{ $post['title'] }}</h5>
+                </div>
+              </div>
+            </a>
+            @endif  
+            @endforeach
+          </div>
+      </section>
+    @endif
 
-    @foreach($posts as $post)
-    @if($post['category'] == 'lifestyle')
-    <section class="py-5 lifestyle mb-5">
-      @foreach($posts as $post)
+    @php $lifestyle = false @endphp
+    @foreach($posts['lifestyle'] as $post)
+      @if($post['category'] == 'lifestyle')
+        @php $lifestyle = true @endphp
+      @endif 
+    @endforeach
+      @if($lifestyle)
+    <section class="py-5 lifestyle-section mb-5">
+      <h1 class="text-center">Lifestyle</h1>
+      <div class="container d-flex">
+      @foreach($posts['lifestyle'] as $post)
         @if($post['category'] == 'lifestyle')
-        <div class="container">
-          <h1 class="text-center">lifestyle</h1>
           <a href="/viewPost/{{$post['id']}}" class="text-decoration-none text-black">
             <div class="card me-2" style="width: 18rem;">
               <div class="card-img">
@@ -94,20 +113,24 @@
               </div>
             </div>
           </a>
+          @endif  
+          @endforeach
         </div>
-        @endif  
-      @endforeach
     </section>
     @endif
-    @endforeach
 
-    @foreach($posts as $post)
-    @if($post['category'] == 'politics')
-    <section class="py-5 politics mb-5">
-      @foreach($posts as $post)
+     @php $politics = false @endphp
+    @foreach($posts['politics'] as $post)
+      @if($post['category'] == 'politics')
+        @php $politics = true @endphp
+      @endif 
+    @endforeach
+      @if($politics)
+    <section class="py-5 politics-section mb-5">
+      <h1 class="text-center">Politics</h1>
+      <div class="container d-flex">
+      @foreach($posts['politics'] as $post)
         @if($post['category'] == 'politics')
-        <div class="container">
-          <h1 class="text-center">politics</h1>
           <a href="/viewPost/{{$post['id']}}" class="text-decoration-none text-black">
             <div class="card me-2" style="width: 18rem;">
               <div class="card-img">
@@ -119,20 +142,25 @@
               </div>
             </div>
           </a>
+          @endif  
+          @endforeach
         </div>
-        @endif  
-      @endforeach
     </section>
     @endif
-    @endforeach
 
-    @foreach($posts as $post)
-    @if($post['category'] == 'sci-tech')
-    <section class="py-5 sci-tech mb-5">
-      @foreach($posts as $post)
+
+    @php $scitech = false @endphp
+    @foreach($posts['sciTech'] as $post)
+      @if($post['category'] == 'sci-tech')
+        @php $scitech = true @endphp
+      @endif 
+    @endforeach
+      @if($scitech)
+    <section class="py-5 sci-tech-section mb-5">
+      <h1 class="text-center">Sci-tech</h1>
+      <div class="container d-flex">
+      @foreach($posts['sciTech'] as $post)
         @if($post['category'] == 'sci-tech')
-        <div class="container">
-          <h1 class="text-center">sci-tech</h1>
           <a href="/viewPost/{{$post['id']}}" class="text-decoration-none text-black">
             <div class="card me-2" style="width: 18rem;">
               <div class="card-img">
@@ -144,20 +172,24 @@
               </div>
             </div>
           </a>
+          @endif  
+          @endforeach
         </div>
-        @endif  
-      @endforeach
     </section>
     @endif
-    @endforeach
 
-    @foreach($posts as $post)
-    @if($post['category'] == 'sports')
-    <section class="py-5 sports">
-      @foreach($posts as $post)
+    @php $sports = false @endphp
+    @foreach($posts['sports'] as $post)
+      @if($post['category'] == 'sports')
+        @php $sports = true @endphp
+      @endif 
+    @endforeach
+      @if($sports)
+    <section class="py-5 sports-section mb-5">
+      <h1 class="text-center">Sports</h1>
+      <div class="container d-flex">
+      @foreach($posts['sports'] as $post)
         @if($post['category'] == 'sports')
-        <div class="container">
-          <h1 class="text-center">sports</h1>
           <a href="/viewPost/{{$post['id']}}" class="text-decoration-none text-black">
             <div class="card me-2" style="width: 18rem;">
               <div class="card-img">
@@ -169,12 +201,11 @@
               </div>
             </div>
           </a>
+          @endif  
+          @endforeach
         </div>
-        @endif  
-      @endforeach
     </section>
     @endif
-    @endforeach
     
     @endif
 </div>
