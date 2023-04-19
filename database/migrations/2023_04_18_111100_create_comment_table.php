@@ -10,7 +10,7 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
+    {        
         Schema::create('comment', function (Blueprint $table) {
             $table->id();
             $table -> string('comment');
@@ -28,8 +28,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('comment',function(Blueprint $table){
-            $table -> bigInteger('post_id');
+        Schema::table('comment', function (Blueprint $table) {
+            $table -> string('profilePath');
         });
     }
 };

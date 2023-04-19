@@ -52,7 +52,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
       <ul class="mb-0 d-flex list-unstyled">
-        @if(session()->has('id'))
+        @if(session()->has('userId'))
           <li class="nav-item me-3">
             <a class="nav-link active" aria-current="page" href="/">HOME</a>
           </li>
@@ -75,7 +75,7 @@
             <a class="nav-link" href="/sports">SPORTS</a>
           </li>
           <li class="nav-item me-3">
-            <a class="nav-link" href="/post">CREATE BLOG</a>
+            <a class="nav-link" href="/post">CREATE POST</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/logout">LOGOUT</a>
@@ -90,7 +90,7 @@
         @endif
         
       </ul>
-      @if(session()->has('id'))
+      @if(session()->has('userId'))
         <form action="" class="d-flex" role="search">
           <input name="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success">Search</button>
@@ -103,7 +103,7 @@
       </div>
       <div class="offcanvas-body">
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-          @if(session()->has('id'))
+          @if(session()->has('userId'))
             <li class="border-bottom nav-item">
               <a class="nav-link active" aria-current="page" href="/">HOME</a>
             </li>
@@ -126,7 +126,7 @@
               <a class="nav-link" href="/sports">SPORTS</a>
             </li> 
             <li class="border-bottom nav-item me-3">
-              <a class="nav-link" href="/post">CREATE BLOG</a>
+              <a class="nav-link" href="/post">CREATE POST</a>
             </li>
             <li class="border-bottom nav-item me-3">
               <a class="nav-link" href="/logout">LOGOUT</a>

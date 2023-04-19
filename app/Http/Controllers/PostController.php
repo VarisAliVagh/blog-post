@@ -12,102 +12,93 @@ use Illuminate\Support\Facades\Schema;
 
 class PostController extends Controller
 {
-    public function index(Request $req)
+    public function index()
     {
-        $id = $req -> id;
-        if($id){
-            $post = Post::find($id)->toarray();
-            return view('post')->with('post',$post);
-        }
-        else{
-            return view('post');
-        }
+        return view('post');        
     }
-    public function create(Request $req)
+    public function createPost(Request $req)
     {
-        $data = $req -> all();
+        $postData = $req -> all();
         $req -> validate([
             'title' => 'required',
             'content' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,webp',
+            'postImg' => 'required|image|mimes:jpeg,png,jpg,webp',
             'category' => 'required|in:business,health,lifestyle,politics,sci-tech,sports'
         ]);
-        
-        $fileName = time().'webelight'.$req -> file('image') -> getClientOriginalExtension();
-        $req -> file('image') -> storeAs('public/',$fileName);
 
-        $id = session()->get('id');
-        $db = new Post;
+        $imageFileName = time().'webelight'.$req -> file('postImg') -> getClientOriginalExtension();
+        $req -> file('postImg') -> storeAs('public/',$imageFileName);
 
-    
-        
-        $db -> title = $data['title'];
-        $db -> content = $data['content'];
-        $db -> imagePath = $fileName;
-        $db -> category = $data['category'];
-        $db -> user_id = $id;
-        $db -> save();
+        $userId = session()->get('userId');
+        $posts = new Post;
 
-        $posts = Post::all()->where('user_id',$id)->toArray();  
-        return view('welcome')->with('posts',$posts);
+        $posts -> title = $postData['title'];
+        $posts -> content = $postData['content'];
+        $posts -> imagePath = $imageFileName;
+        $posts -> category = $postData['category'];
+        $posts -> user_id = $userId;
+        $posts -> save();
+
+        return redirect()->route('index');
     }
     public function viewPost(Request $req)
     {
-        $postId = $req -> id;
-        $id = session()->get('id');
-        $comment = Comment::where('user_comment_id',$id)->where('post_id',$postId)->get();
-        $id = $req -> id;
-        $findRecord = Post::find($id);
-        if($findRecord){
-            $findRecord = $findRecord->toarray();
-            return view('viewPost') -> with('record',['findRecord'=>$findRecord,'comment'=>$comment]);  
-        }
-        else{
-            return view('viewPost');  
-        }
-    }
-    public function updatePost(Request $req)
-    {
-        $id = $req -> id;
-        $record = Post::find($id);
-        if($req -> file('image')){
-            $fileName = time().'webelight'.$req -> file('image') -> getClientOriginalExtension();
-            $req -> file('image') -> storeAs('public/',$fileName);
-            $record -> imagePath = $fileName;
-        }
-    
-        $record -> title = $req['title'];
-        $record -> content = $req['content'];
-        $record -> comment = $req['comment'];
-        $record -> save();
-
-        return redirect('/');
-    }
-    public function deletePost(Request $req)
-    {
-        $id = $req -> id;
-        $record = Post::find($id) -> delete();
-        return redirect('/');
+        $postId = $req -> postId;
+        $post = Post::find($postId)->toarray();
+        $userId = session()->get('userId');
+        $commentRecord = Comment::where('user_comment_id',$userId)->where('post_id',$postId)->get();
+        return view('viewPost')->with('postsArray',['posts'=>$post,'commentRecord'=>$commentRecord]);
     }
     public function createComment(Request $req)
     {
-        $postId = $req -> id;
-        $cmtObj = new Comment;
-        
+        $postId = $req -> postId;
+        $comment = new Comment;
         $req -> validate([
             'name' => 'required',
             'email' => 'required|email'
         ]);
         
-        $id = session()->get('id');
-        
-        $cmtObj -> comment = $req['comment'] ?? '';
-        $cmtObj -> name = $req['name'];
-        $cmtObj -> email = $req['email'];
-        $cmtObj -> website = $req['website'] ?? '';
-        $cmtObj -> user_comment_id = $id;
-        $cmtObj -> post_id = $postId;
-        $cmtObj -> save();
-        return view('viewPost');
+        $userId = session()->get('userId');
+        $imageFileName = '';    
+        if($req['profile']){
+            $imageFileName = time().'webelight'.$req -> file('profile') -> getClientOriginalExtension();
+            $req -> file('profile') -> storeAs('public/',$imageFileName);
+        }
+
+        $comment -> comment = $req['comment'] ?? '';
+        $comment -> name = $req['name'];
+        $comment -> email = $req['email'];
+        $comment -> website = $req['website'] ?? '';
+        $comment -> user_comment_id = $userId;
+        $comment -> post_id = $postId;
+        $comment -> profilePath = $imageFileName;
+        $comment -> save();
+
+        return redirect()->route('viewPost',['postId'=>$postId]);
     }
+
+    // public function editPost(Request $req)
+    // {
+    //     $postId = $req -> postId;
+    //     $record = Post::find($pos);
+    //     if($req -> file('image')){
+    //         $fileName = time().'webelight'.$req -> file('image') -> getClientOriginalExtension();
+    //         $req -> file('image') -> storeAs('public/',$fileName);
+    //         $record -> imagePath = $fileName;
+    //     }
+    
+    //     $record -> title = $req['title'];
+    //     $record -> content = $req['content'];
+    //     $record -> comment = $req['comment'];
+    //     $record -> save();
+
+    //     return redirect('/');
+    // }
+    // public function deletePost(Request $req)
+    // {
+    //     $id = $req -> id;
+    //     $record = Post::find($id) -> delete();
+    //     return redirect('/');
+    // }
+    
 }

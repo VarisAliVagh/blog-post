@@ -17,22 +17,27 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('/',[HomeController::class,'index'])->middleware('guard');
-Route::get('/post/{id?}',[PostController::class,'index'])->middleware('guard');
-Route::post('/post/create',[PostController::class,'create'])->middleware('guard');
-Route::get('/viewPost/{id}',[PostController::class,'viewPost'])->middleware('guard');
-Route::post('/createComment/{id}',[PostController::class,'createComment'])->middleware('guard');
-
-Route::post('/post/update/{id}',[PostController::class,'updatePost'])->middleware('guard');
-Route::get('/delete/{id}',[PostController::class,'DeletePost'])->middleware('guard');
+Route::get('/',[HomeController::class,'index'])->name('index')->middleware('guard');
+Route::get('/post',[PostController::class,'index'])->name('post')->middleware('guard');
+Route::post('/post',[PostController::class,'createPost'])->name('createPost')->middleware('guard');
+Route::get('/view/{postId}',[PostController::class,'viewPost'])->name('viewPost')->middleware('guard');
+Route::post('/view/{postId}',[PostController::class,'createComment'])->name('createComment')->middleware('guard');
+Route::get('/edit/{postId}',[PostController::class,'editPost'])->name('editPost')->middleware('guard');
 
 
+// Route::post('/post/create',[PostController::class,'create'])->middleware('guard');
+// Route::post('/createComment/{id}',[PostController::class,'createComment'])->middleware('guard');
 
-Route::get('/login',[AuthController::class,'login']);
-Route::post('/login',[AuthController::class,'loginUser']);
-Route::get('/register',[AuthController::class,'register']);
-Route::post('/register',[AuthController::class,'registerUser']);
-Route::get('/logout',[AuthController::class,'logoutUser']);
+// Route::post('/post/update/{id}',[PostController::class,'updatePost'])->middleware('guard');
+// Route::get('/delete/{id}',[PostController::class,'DeletePost'])->middleware('guard');
+
+
+
+Route::get('/login',[AuthController::class,'getLogin'])->name('getLogin');
+Route::post('/login',[AuthController::class,'postLogin'])->name('postLogin');
+Route::get('/register',[AuthController::class,'getRegister'])->name('getRegister');
+Route::post('/register',[AuthController::class,'postRegister'])->name('postRegistered');
+Route::get('/logout',[AuthController::class,'logout'])->name('logout');
 
 
 

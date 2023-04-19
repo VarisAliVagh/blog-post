@@ -129,3 +129,25 @@ footer .container .social-icons .instagram{
     top: 0;
     left: 0;
 }
+.edit-post-overlay{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-color: #6d7491;
+    opacity: 0.5;
+    height: 0%;
+    width: 100% ;
+    overflow: hidden;
+    transition: 0.5s;
+}
+.edit-post-btn{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-color: #282f4d;
+}
+.edit-post:hover .edit-post-overlay{
+    height: 100%;
+}

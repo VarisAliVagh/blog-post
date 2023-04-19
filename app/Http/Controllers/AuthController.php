@@ -8,17 +8,13 @@ use App\Models\Auth;
 
 class AuthController extends Controller
 {
-    public function login()
-    {
-        return view('login');
-    }
-    public function register()
+    public function getRegister()
     {
         return view('register');
     }
-    public function registerUser(Request $req)
+    public function postRegister(Request $req)
     {
-        $data = $req -> all();
+        $registerData = $req -> all();
         $req -> validate([
             'first-name' => 'required',
             'last-name' => 'required',
@@ -32,20 +28,23 @@ class AuthController extends Controller
                           ],
         ]);
 
-        $db = new Auth;
-        $db -> first_name = $data['first-name'];
-        $db -> last_name = $data['last-name'];
-        $db -> email = $data['email'];
-        $db -> password = md5($data['password']);
-        $db -> save();
+        $registerTable = new Auth;
+        $registerTable -> first_name = $registerData['first-name'];
+        $registerTable -> last_name = $registerData['last-name'];
+        $registerTable -> email = $registerData['email'];
+        $registerTable -> password = md5($registerData['password']);
+        $registerTable -> save();
         
-        $user = Auth::latest()->first();
-        $id = $user->id;
-
-        session()->put('id',$id);
+        $latestRegisterUser = Auth::latest()->first();
+        $userId = $latestRegisterUser -> id;
+        session()->put('userId',$userId);
         return redirect('/');
     }
-    public function loginUser(Request $req)
+    public function getLogin()
+    {
+        return view('login');
+    }
+    public function postLogin(Request $req)
     {
         $req -> validate([
             'email' => 'required|email:strict',
@@ -58,27 +57,27 @@ class AuthController extends Controller
                           ],
         ]);
 
-        $data = $req -> all();
-        $email = $data['email'];
-        $password = md5($data['password']);
+        $loginData = $req -> all();
+        $email = $loginData['email'];
+        $password = md5($loginData['password']);
         
-        $db = Auth::all()->toArray();
-        foreach($db as $dbData){
-            if($dbData['email'] == $email && $dbData['password'] == $password){
-                session()->put('id',$dbData['id']);
+        $registerTable = Auth::all()->toArray();
+        foreach($registerTable as $registerUser){
+            if($registerUser['email'] == $email && $registerUser['password'] == $password){
+                session()->put('userId',$registerUser['id']);
                 return redirect('/');
             }
         }
-        $error = "<div class='login-alert alert alert-danger alert-dismissible fade show' role='alert'>
-                    <strong>Failed!</strong> Please recheck the email and password
-                    <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
-                 </div>";
-        return view('/login') -> with('error',$error);
+        $loginError ="<div class='login-alert alert alert-danger alert-dismissible fade show' role='alert'>
+                        <strong>Failed!</strong> Please recheck the email and password
+                        <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+                    </div>";
+        return view('/login') -> with('loginError',$loginError);
     }
-    public function logoutUser()
+    public function logout()
     {
-        session()->forget('id');
+        session()->forget('userId');
         session()->flush();
-        return redirect('/login');
+        return redirect()->route('getLogin');
     }
 }

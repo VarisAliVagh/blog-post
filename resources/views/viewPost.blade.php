@@ -1,22 +1,29 @@
 @extends('/layouts/main')
 
-{{-- @dd($record['comment']) --}}
+{{-- @dd(sizeOf($postsArray['commentRecord'])) --}}
+{{-- @if()
 
+@endif --}}
 @section('main-content')
 <div class="view-post-container container my-5">
     <div class="row">
         <div class="col-md-8">
             <div class="blog-img-title">
-                <img class="view-post-img" src="{{asset('storage/')}}/{{$record['findRecord']['imagePath'] ?? ''}}" alt="">
+                <div class="edit-post position-relative">
+                    <div class="edit-post-overlay">
+                        <a href="/edit" class="btn btn-success edit-post-btn">Edit Post</a>
+                    </div>
+                    <img class="view-post-img" src="{{asset('storage/')}}/{{ $postsArray['posts']['imagePath'] ?? ''}}" alt="">
+                </div>
                 <div class="blog-title">
-                    <h1 class="text-center">{{$record['findRecord']['title'] ?? '' }}</h1>
+                    <h1 class="text-center">{{ $postsArray['posts']['title'] ?? '' }}</h1>
                 </div>
             </div>
             <div class="blog-content mt-3">
-                <p class="text-center">{{$record['findRecord']['content'] ?? '' }}</p>
+                <p class="text-center">{{ $postsArray['posts']['content']  ?? '' }}</p>
             </div>
             <div class="blog-comment">
-                <p class="text-center">{{$record['findRecord']['comment'] ?? '' }}</p>
+                <p class="text-center">{{ $postsArray['posts']['comment'] ?? '' }}</p>
             </div>
         </div>
         <aside class="col-md-4 border p-3">
@@ -75,13 +82,17 @@
             </ul>
         </aside>
     </div>
+    @if(sizeOf($postsArray['commentRecord']) > 0)
     <div class="comment-record">
         <h3>Your Comment</h3>
-        @if(isset($record['comment']))
-        @foreach($record['comment'] as $rec)
+        @foreach($postsArray['commentRecord'] as $rec)
         <div class="d-flex bg-light col-md-8 p-3 mb-3 align-items-center">
-            <div class="me-3">
+            <div class="me-3">  
+                @if($rec['profilePath'])
+                <img src="/storage/{{ $rec['profilePath'] }}" alt="" height="50" width="50">
+                @else
                 <i class="h1 fa-solid fa-user-secret"></i>
+                @endif
             </div>
             <div class="d-flex flex-column">
                 <span>{{ $rec['name'] }}</span>
@@ -90,18 +101,18 @@
             </div>
         </div>
         @endforeach
-        @endif
     </div>
+    @endif
     <div class="col-md-8 mt-5 mb-3">
         <h3 class="text-center">LEAVE A COMMENT</h3>
-        <form action="/createComment/{{ $record['findRecord']['id'] ?? '' }}" method="POST">
+        <form action="/view/{{ $postsArray['posts']['id'] ?? '' }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
                 <textarea class="form-control" id="comment" rows="3" placeholder="Your comment" name="comment"></textarea>
             </div>
             <div class="row">
                 <div class="mb-3 col-md-4">
-                    <input type="text" class="form-control" id="name" name="name" placeholder="name">
+                    <input type="text" class="form-control" id="name" name="name" placeholder="*name">
                     <span class="text-danger">
                         @error('name')
                             {{ $message }}
@@ -109,7 +120,7 @@
                     </span>
                 </div>
                 <div class="mb-3 col-md-4">
-                    <input type="email" class="form-control" id="email" placeholder="email" name="email">
+                    <input type="email" class="form-control" id="email" placeholder="*email" name="email">
                     <span class="text-danger">
                         @error('email')
                             {{ $message }}
@@ -118,6 +129,12 @@
                 </div>
                 <div class="mb-3 col-md-4">
                     <input type="text" class="form-control" id="website" placeholder="Website" name="website">
+                </div>
+                <div>
+                    <div class="mb-3">
+                        <label for="profile " class="form-label">Upload profile here</label>
+                        <input class="form-control" type="file" id="profile" name="profile">
+                    </div>
                 </div>
             </div>
             <div class="text-center">

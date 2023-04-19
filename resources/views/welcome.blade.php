@@ -1,23 +1,16 @@
 @extends('/layouts/main')
-
-
-{{-- @foreach($catArr as $cat)
-  {{ pre($cat->toarray()) }} 
-@endforeach
-{{ exit }} --}}
-{{-- @dd($posts['business']) --}}
-{{-- @dd($posts) --}}
-
 @section('main-content')
+
 <div class="show-post-container">
-    @if(empty($posts))
+  
+    @if(sizeOf($posts['latestPost']) == 0)
     <div class="empty-data-container">
       <h3>No post found</h3>
     </div>
     @else
     <section class="all-categories-container container mt-5 mb-5">
       @foreach($posts['latestPost'] as $post)
-        <a href="/viewPost/{{$post['id']}}" class="text-decoration-none text-black mb-2">
+        <a href="/view/{{$post['id']}}" class="text-decoration-none text-black mb-2">
           <div class="card me-2" style="width: 18rem;">
             <div class="card-img">
               <img src="{{asset('storage/')}}/{{$post['imagePath']}}" class="card-img-top" alt="...">
@@ -44,7 +37,7 @@
       <div class="container d-flex">
       @foreach($posts['business'] as $post)
         @if($post['category'] == 'business')
-          <a href="/viewPost/{{$post['id']}}" class="text-decoration-none text-black">
+          <a href="/view/{{$post['id']}}" class="text-decoration-none text-black">
             <div class="card me-2" style="width: 18rem;">
               <div class="card-img">
                 <img src="{{asset('storage/')}}/{{$post['imagePath']}}" class="card-img-top" alt="...">
@@ -73,7 +66,7 @@
         <div class="container d-flex">
         @foreach($posts['health'] as $post)
           @if($post['category'] == 'health')
-            <a href="/viewPost/{{$post['id']}}" class="text-decoration-none text-black">
+            <a href="/view/{{$post['id']}}" class="text-decoration-none text-black">
               <div class="card me-2" style="width: 18rem;">
                 <div class="card-img">
                   <img src="{{asset('storage/')}}/{{$post['imagePath']}}" class="card-img-top" alt="...">
@@ -102,7 +95,7 @@
       <div class="container d-flex">
       @foreach($posts['lifestyle'] as $post)
         @if($post['category'] == 'lifestyle')
-          <a href="/viewPost/{{$post['id']}}" class="text-decoration-none text-black">
+          <a href="/view/{{$post['id']}}" class="text-decoration-none text-black">
             <div class="card me-2" style="width: 18rem;">
               <div class="card-img">
                 <img src="{{asset('storage/')}}/{{$post['imagePath']}}" class="card-img-top" alt="...">
@@ -131,7 +124,7 @@
       <div class="container d-flex">
       @foreach($posts['politics'] as $post)
         @if($post['category'] == 'politics')
-          <a href="/viewPost/{{$post['id']}}" class="text-decoration-none text-black">
+          <a href="/view/{{$post['id']}}" class="text-decoration-none text-black">
             <div class="card me-2" style="width: 18rem;">
               <div class="card-img">
                 <img src="{{asset('storage/')}}/{{$post['imagePath']}}" class="card-img-top" alt="...">
@@ -161,7 +154,7 @@
       <div class="container d-flex">
       @foreach($posts['sciTech'] as $post)
         @if($post['category'] == 'sci-tech')
-          <a href="/viewPost/{{$post['id']}}" class="text-decoration-none text-black">
+          <a href="/view/{{$post['id']}}" class="text-decoration-none text-black">
             <div class="card me-2" style="width: 18rem;">
               <div class="card-img">
                 <img src="{{asset('storage/')}}/{{$post['imagePath']}}" class="card-img-top" alt="...">
@@ -190,7 +183,7 @@
       <div class="container d-flex">
       @foreach($posts['sports'] as $post)
         @if($post['category'] == 'sports')
-          <a href="/viewPost/{{$post['id']}}" class="text-decoration-none text-black">
+          <a href="/view/{{$post['id']}}" class="text-decoration-none text-black">
             <div class="card me-2" style="width: 18rem;">
               <div class="card-img">
                 <img src="{{asset('storage/')}}/{{$post['imagePath']}}" class="card-img-top" alt="...">
@@ -228,7 +221,7 @@
                     <td>{{ $post['comment'] }}</td>
                     <td class="post-img"><img src="{{asset('storage/')}}/{{$post['imagePath']}}" alt=""></td>
                     <td>
-                      <a href="/viewPost/{{$post['id']}}" class="me-1"><i class="fa-solid fa-eye"></i></a>
+                      <a href="/view/{{$post['id']}}" class="me-1"><i class="fa-solid fa-eye"></i></a>
                       <a href="/post/{{$post['id']}}" class="me-1"><i class="fa-solid fa-pen-to-square"></i></a>
                       <a href="/delete/{{$post['id']}}"><i class="fa-solid fa-trash"></i></a>
                     </td>
