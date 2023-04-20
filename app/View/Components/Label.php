@@ -6,24 +6,21 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class Select extends Component
+class Label extends Component
 {
     /**
      * Create a new component instance.
      */
-    public $name;
-    public $id;
-    public $option;
+    public $label;
     public $class;
-
-
-    public function __construct($name="",$id="",$option=[],$class="")
+    public $for;
+    public $id;
+    public function __construct($label="",$for="",$class="",$id="")
     {
-        $this->name = $name;
-        $this->id = $id;
-        $this->option = $option;
-        $this->class = $class;
-
+        $this->label=$label;
+        $this->for=$for;
+        $this->class=$class;
+        $this->id=$id;
     }
 
     /**
@@ -31,6 +28,6 @@ class Select extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.select');
+        return view('components.label');
     }
 }

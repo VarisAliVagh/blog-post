@@ -22,8 +22,9 @@ Route::get('/post',[PostController::class,'index'])->name('post')->middleware('g
 Route::post('/post',[PostController::class,'createPost'])->name('createPost')->middleware('guard');
 Route::get('/view/{postId}',[PostController::class,'viewPost'])->name('viewPost')->middleware('guard');
 Route::post('/view/{postId}',[PostController::class,'createComment'])->name('createComment')->middleware('guard');
-Route::get('/edit/{postId}',[PostController::class,'editPost'])->name('editPost')->middleware('guard');
-
+Route::get('/viewEdit/{postId}',[PostController::class,'viewEdit'])->name('viewEdit')->middleware('guard');
+Route::post('/viewEdit/{postId}',[PostController::class,'editPost'])->name('editPost')->middleware('guard');
+Route::get('/delete/{postId}',[PostController::class,'deletePost'])->name('deletePost')->middleware('guard');
 
 // Route::post('/post/create',[PostController::class,'create'])->middleware('guard');
 // Route::post('/createComment/{id}',[PostController::class,'createComment'])->middleware('guard');

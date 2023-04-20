@@ -1,9 +1,4 @@
 @extends('/layouts/main')
-
-{{-- @dd(sizeOf($postsArray['commentRecord'])) --}}
-{{-- @if()
-
-@endif --}}
 @section('main-content')
 <div class="view-post-container container my-5">
     <div class="row">
@@ -11,7 +6,8 @@
             <div class="blog-img-title">
                 <div class="edit-post position-relative">
                     <div class="edit-post-overlay">
-                        <a href="/edit" class="btn btn-success edit-post-btn">Edit Post</a>
+                        <a href="/viewEdit/{{$postsArray['posts']['id']}}" class="btn btn-success edit-post-btn">Edit Post</a>
+                        <a href="/delete/{{$postsArray['posts']['id']}}" class="btn btn-primary">Delete</a>
                     </div>
                     <img class="view-post-img" src="{{asset('storage/')}}/{{ $postsArray['posts']['imagePath'] ?? ''}}" alt="">
                 </div>
@@ -108,32 +104,22 @@
         <form action="/view/{{ $postsArray['posts']['id'] ?? '' }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
-                <textarea class="form-control" id="comment" rows="3" placeholder="Your comment" name="comment"></textarea>
+                <x-TextArea class="form-control" id="comment" rows="3" placeholder="Your comment" name="comment" />
             </div>
             <div class="row">
                 <div class="mb-3 col-md-4">
-                    <input type="text" class="form-control" id="name" name="name" placeholder="*name">
-                    <span class="text-danger">
-                        @error('name')
-                            {{ $message }}
-                        @enderror
-                    </span>
+                    <x-Input type="text" class="form-control" id="name" name="name" placeholder="*name" />
                 </div>
                 <div class="mb-3 col-md-4">
-                    <input type="email" class="form-control" id="email" placeholder="*email" name="email">
-                    <span class="text-danger">
-                        @error('email')
-                            {{ $message }}
-                        @enderror
-                    </span>
+                    <x-Input type="email" class="form-control" id="email" placeholder="*email" name="email" />
                 </div>
                 <div class="mb-3 col-md-4">
-                    <input type="text" class="form-control" id="website" placeholder="Website" name="website">
+                    <x-Input type="text" class="form-control" id="website" placeholder="Website" name="website" />
                 </div>
                 <div>
                     <div class="mb-3">
-                        <label for="profile " class="form-label">Upload profile here</label>
-                        <input class="form-control" type="file" id="profile" name="profile">
+                        <x-Label for="profile " class="form-label" label="Upload profile here" />
+                        <x-Input class="form-control" type="file" id="profile" name="profile" />
                     </div>
                 </div>
             </div>
