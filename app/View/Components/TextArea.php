@@ -23,7 +23,7 @@ class TextArea extends Component
     public $wrap;
     public $value;
 
-    public function __construct($name="",$id="",$class="",$cols="",$rows="",$placeholder="",$dirname="",$form="",$maxlength="",$wrap="",$value="")
+    public function __construct($name = "", $id = "", $class = "", $cols = "", $rows = "", $placeholder = "", $dirname = "", $form = "", $maxlength = "", $wrap = "", $value = "")
     {
         $this->name = $name;
         $this->id = $id;
@@ -34,8 +34,8 @@ class TextArea extends Component
         $this->dirname = $dirname;
         $this->form = $form;
         $this->maxlength = $maxlength;
-        $this->wrap  = $wrap ;
-        $this->value  = $value ;
+        $this->wrap  = $wrap;
+        $this->value  = $value;
     }
 
     /**

@@ -15,10 +15,9 @@ class WebGuard
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(session()->has('userId')){
+        if (session()->has('userId')) {
             return $next($request);
-        }
-        else{
+        } else {
             return redirect('/login');
         }
     }

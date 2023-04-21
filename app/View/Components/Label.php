@@ -15,12 +15,12 @@ class Label extends Component
     public $class;
     public $for;
     public $id;
-    public function __construct($label="",$for="",$class="",$id="")
+    public function __construct($label = "", $for = "", $class = "", $id = "")
     {
-        $this->label=$label;
-        $this->for=$for;
-        $this->class=$class;
-        $this->id=$id;
+        $this->label = $label;
+        $this->for = $for;
+        $this->class = $class;
+        $this->id = $id;
     }
 
     /**

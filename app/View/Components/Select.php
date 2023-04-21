@@ -17,13 +17,12 @@ class Select extends Component
     public $class;
 
 
-    public function __construct($name="",$id="",$option=[],$class="")
+    public function __construct($name = "", $id = "", $option = [], $class = "")
     {
         $this->name = $name;
         $this->id = $id;
         $this->option = $option;
         $this->class = $class;
-
     }
 
     /**

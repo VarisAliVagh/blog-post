@@ -23,16 +23,15 @@ class Input extends Component
     public $size;
     public $minlength;
     public $maxlength;
-    // public $pattern;
     public $step;
     public $src;
     public $alt;
     public $width;
     public $height;
 
-    public function __construct($type='',$id='',$name='',$value='',$class='',$placeholder='',$max='',$min='',$autocomplete='',$size='',$minlength='',$maxlength='',/*$pattern=''*/$step='',$src='',$alt='',$width='',$height='')
+    public function __construct($type = '', $id = '', $name = '', $value = '', $class = '', $placeholder = '', $max = '', $min = '', $autocomplete = '', $size = '', $minlength = '', $maxlength = '', $step = '', $src = '', $alt = '', $width = '', $height = '')
     {
-        $this->id = $id;    
+        $this->id = $id;
         $this->type = $type;
         $this->name = $name;
         $this->value = $value;
@@ -44,7 +43,6 @@ class Input extends Component
         $this->size = $size;
         $this->minlength = $minlength;
         $this->maxlength = $maxlength;
-        // $this->pattern = $pattern;
         $this->src = $src;
         $this->alt = $alt;
         $this->width = $width;
